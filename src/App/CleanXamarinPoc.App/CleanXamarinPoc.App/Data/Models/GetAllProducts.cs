@@ -9,10 +9,10 @@ namespace CleanXamarinPoc.App.Data.Models
     public class GetAllProductsModel
     {
         public int Id { get; set; }
-        public string Title { get; private set; }
-        public decimal Price { get; private set; }
+       
         public List<ItemsGetAllProducts> Items { get; set; }
 
+        public Details Details { get; set; }
         public static IList<ProductEntity> ToListEntity(IEnumerable<GetAllProductsModel> products)
         {
             return products.Select(ToEntity).ToList();
@@ -21,10 +21,14 @@ namespace CleanXamarinPoc.App.Data.Models
         {
             var items = data.Items.Select(ItemsGetAllProducts.ToEntity).ToList();
 
-            return new ProductEntity(data.Id, data.Title, data.Price, items);
+            return new ProductEntity(data.Id, data.Details.Title, data.Details.Price, items);
         }
     }
-
+    public class Details
+    {
+        public string Title { get; private set; }
+        public decimal Price { get; private set; }
+    }
     public class ItemsGetAllProducts
     {
         public int Id { get; set; }
